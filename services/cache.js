@@ -9,7 +9,7 @@ client.get = util.promisify(client.get);
 
 const exec = mongoose.Query.prototype.exec;
 
-mongoose.Query.prototype.exec = async function(){
+mongoose.Query.prototype.exec = function(){
 
     //this key contains an object which contains id 
     //and the collection name concated to it to create a unique key 
@@ -18,15 +18,17 @@ mongoose.Query.prototype.exec = async function(){
     });
     
     //see if we have a value for key in redis
-    const cacheValue = await client.get(key);
+    const cacheValue = client.get(key);
 
     //if exists return that 
     if (cacheValue){
         console.log(cacheValue);
+        return JSON.parse(cacheValue);
     }
 
     //otherwise, issue the query to mongo and store 
     //result in redis
-    const result = await exec.apply(this,arguments);
-    return result
-}
+    const result = exec.apply(this,arguments);
+    client.set(key, JSON.stringify(result));
+    return result;
+};
