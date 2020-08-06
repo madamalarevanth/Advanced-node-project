@@ -9,7 +9,21 @@ client.get = util.promisify(client.get);
 
 const exec = mongoose.Query.prototype.exec;
 
+mongoose.Query.prototype.cache = function(){
+    //create a usecache variable in query prototype 
+    //which can act as a condition to use the cache or not 
+    this.useCache = true;
+
+    //return the value so we it can be chainable
+    return this;
+}
+
 mongoose.Query.prototype.exec = async function(){
+    //refer to useCache variable if it is set then use the caching
+    // else dont use it  
+    if (!this.useCache){
+        return exec.apply(this,arguments);
+    }
 
     //this key contains an object which contains id 
     //and the collection name concated to it to create a unique key 
@@ -22,14 +36,19 @@ mongoose.Query.prototype.exec = async function(){
 
     //if exists return that object by converting it into mongo document
     if (cacheValue){
-        //converts the object into mongodb doc
-        const doc =new this.model(JSON.parse(cacheValue));
-        return doc;
+        //cacheValue can be either a single object or array of objects 
+        const doc =JSON.parse(cacheValue);
+
+        //check if doc value is single or array
+        //converts the object into mongodb doc and return
+        return  Array.isArray(doc) ?
+            doc.map(d=> new this.model(d)):
+            new this.model(doc);  
     }
 
     //otherwise, issue the query to mongo and store 
     //result in redis
     const result =  await exec.apply(this,arguments);
-    client.set(key, JSON.stringify(result));
+    client.set(key, JSON.stringify(result),'EX',10);
     return result;
 };
