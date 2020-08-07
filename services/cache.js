@@ -55,3 +55,11 @@ mongoose.Query.prototype.exec = async function(){
     client.hmset(this.hashKey, key, JSON.stringify(result),'EX',10);
     return result;
 };
+
+//to clear the redis cache with certain hashkey
+module.exports ={
+    clearHash(hashKey){
+      client.del(JSON.stringify(hashKey));
+  
+    }
+  };
