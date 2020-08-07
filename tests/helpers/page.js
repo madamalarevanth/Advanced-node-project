@@ -29,7 +29,7 @@ class CustomPage{
         //set the cookies with sessionstring and signature 
         await this.page.setCookie({ name: 'session', value: session });
         await this.page.setCookie({ name: 'session.sig', value: sig });
-        await this.page.goto('localhost:3000');
+        await this.page.goto('localhost:3000/blogs');
     
         //wait till all the session variables are set and the anchor tag shows up in the page
         await this.page.waitFor('a[href="/auth/logout"]');
