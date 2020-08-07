@@ -1,5 +1,4 @@
 const Page = require('./helpers/page');
-require('./setup');
 
 let page;
 
