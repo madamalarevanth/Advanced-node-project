@@ -11,9 +11,30 @@ afterEach(async () => {
     await page.close();
 });
 
-test('When loggedin can see blog create form',async()=>{
-    await page.login(); 
-    await page.click('a.btn-floating');
-    const label = await page.getContentsOf('form label');
-    expect(label).toEqual('Blog Title')
-})
+describe('when logged in',()=>{
+    beforeEach(async () => {
+        await page.login();
+        await page.click('a.btn-floating');
+    });
+    
+    test('can see blog create form',async ()=>{
+        const label = await page.getContentsOf('form label');
+        expect(label).toEqual('Blog Title')
+    });
+
+    describe('And using invalid inputs', async () => {
+        beforeEach(async () => {
+            await page.click('form button')
+        });
+        test('the form shows an error message',async () => {
+            const titleError = await page.click('.title .red-text');
+            const contentError = await page.click('.content .red-text');
+
+            expect(titleError).toEqual('YOu must provide a value')
+            expect(contentError).toEqual('YOu must provide a value')
+        });
+    })
+
+});
+
+
