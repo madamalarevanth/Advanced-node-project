@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Fri Aug 07 2020 18:42:02 GMT+0530 (India Standard Time)
+------------------------------------------------------
+
+Modified files:
+* tests/blogs.test.js
+* tests/setup.js
+
+
+Created files:
+* .autogit/logs/log-7-7-2020-18-11-55.txt
+
+
+Deleted files:
+
+
+Renamed files:
