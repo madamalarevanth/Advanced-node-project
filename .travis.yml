@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 8
+  - "8"
 dist: trusty
 before_install:
   - "sysctl kernel.unprivileged_userns_clone=1"
