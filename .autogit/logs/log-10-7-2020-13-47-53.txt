@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Mon Aug 10 2020 13:47:53 GMT+0530 (India Standard Time)
+------------------------------------------------------
+
+Modified files:
+* tests/.travis.yml
+
+
+Created files:
+* .autogit/logs/log-10-7-2020-12-47-40.txt
+
+
+Deleted files:
+
+
+Renamed files:
