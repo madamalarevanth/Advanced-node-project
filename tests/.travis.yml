@@ -2,9 +2,6 @@ language: node_js
 node_js:
   - 8
 dist: trusty
-sudo: required
-addons:
-  chrome: stable
 before_install:
   - "sysctl kernel.unprivileged_userns_clone=1"
   - "export DISPLAY=:99.0"
