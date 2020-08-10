@@ -76,20 +76,20 @@ describe('When user is not logged in', async () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ title: 'My Title', content: 'My content' })
-            }).then(res=>res.json()); //fetch returns raw data. we need to convert it into json
+            }).then(res => res.json()); //fetch returns raw data. we need to convert it into json
         });
-        expect(result).toEqual({error: 'You must log in!'});
+        expect(result).toEqual({ error: 'You must log in!' });
     });
-    test('User cannot get a list of posts', async ()=>{
-        const result= await page.evaluate(()=>{
+    test('User cannot get a list of posts', async () => {
+        const result = await page.evaluate(() => {
             return fetch('/api/blogs', {
                 method: 'GET',
                 credentials: 'same-origin',
                 headers: {
                     'Content-Type': 'application/json',
                 }
-            }).then(res=>res.json()); //fetch returns raw data. we need to convert it into json
+            }).then(res => res.json()); //fetch returns raw data. we need to convert it into json
         });
-        expect(result).toEqual({error: 'You must log in!'});
+        expect(result).toEqual({ error: 'You must log in!' });
     });
 });
