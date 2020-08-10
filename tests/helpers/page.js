@@ -6,7 +6,8 @@ class CustomPage{
     static async build(){
     
         const browser = await puppeteer.launch({
-            headless: false
+            headless: true,
+            args:['--no-sandbox']
         });
 
         const page = await browser.newPage();
@@ -29,7 +30,7 @@ class CustomPage{
         //set the cookies with sessionstring and signature 
         await this.page.setCookie({ name: 'session', value: session });
         await this.page.setCookie({ name: 'session.sig', value: sig });
-        await this.page.goto('localhost:3000/blogs');
+        await this.page.goto('http://localhost:3000/blogs');
     
         //wait till all the session variables are set and the anchor tag shows up in the page
         await this.page.waitFor('a[href="/auth/logout"]');
