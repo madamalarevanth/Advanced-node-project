@@ -4,4 +4,5 @@ const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
 mongoose.Promise = global.Promise;
+//mongo url 
 mongoose.connect(keys.mongoURI);
